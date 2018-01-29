@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Crypto Checker</title>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,700" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <style>
+    html{
+        font-family: 'Work Sans', sans-serif;
+        margin:0px;
+    }
+    #header{
+        box-shadow: 0 1px 0 lightgrey,0 10px 5px rgba(0, 0, 0, .3);
+    }
+    .globalcrypto{
+        overflow: hidden;
+        text-align: center;
+        background-color:grey;
+        width:100%;
+        height:40px;
+        top:0px;
+        left:0px;
+        position:fixed;
+    }
+    .globalcrypto div p{
+        display: inline-block;
+        text-align: center;
+        width:100%;
+        line-height:50%;
+        /* Starting position */
+        -moz-transform:translateX(100%);
+        -webkit-transform:translateX(100%);	
+        transform:translateX(100%);
+        /* Apply animation to this element */	
+        -moz-animation: scroll-left 15s linear infinite;
+        -webkit-animation: scroll-left 15s linear infinite;
+        animation: scroll-left 20s linear infinite;
+        white-space: pre;
+    }
+        /* Move it (define the animation) */
+    @-moz-keyframes scroll-left {
+        0%   { -moz-transform: translateX(100%); }
+        100% { -moz-transform: translateX(-100%); }
+    }
+    @-webkit-keyframes scroll-left {
+        0%   { -webkit-transform: translateX(100%); }
+        100% { -webkit-transform: translateX(-100%); }
+    }
+    @keyframes scroll-left {
+        0%   { 
+        -moz-transform: translateX(100%); /* Browser bug fix */
+        -webkit-transform: translateX(100%); /* Browser bug fix */
+        transform: translateX(100%); 		
+        }
+        100% { 
+        -moz-transform: translateX(-130%); /* Browser bug fix */
+        -webkit-transform: translateX(-130%); /* Browser bug fix */
+        transform: translateX(-130%); 
+        }
+    }
+    .left-following{
+        display:inline-block;
+    }
+    #content{
+        margin-top:50px;
+    }
+    #tables{
+        display: none;
+        background: grey;
+        color: #FFF;
+
+        padding-top: 20px;
+        padding-bottom: 20px;
+        
+        width: 100%;
+        margin-left:0px;
+        margin-right:0px;
+        box-shadow: inset 0 0 10px #000000;
+        left:0px;
+        position:fixed;
+    }
+    hr{
+        margin-right:0px;
+        margin-bottom: 0px;
+        padding:0px;
+    }
+    #header-title{
+        padding: 0px;
+        margin: 0px;
+    }
+    .main-title{
+        text-align: center;
+    }
+    .dropdown{
+        text-align: center;
+        float: none;
+        display:block;
+        margin-top: 20px;
+    }
+    .dropdown select{
+        margin-left:3px;
+        margin-right: 3px; 
+        margin-top:0px;
+        margin-bottom: 10px;
+    }
+    .dropdown select:last-child{
+        margin-left: 10px;
+    }
+    .ddmenu{
+        width: 100px;
+        height: 20px;
+    }
+    .buttons{
+        display:inline-block;
+        margin: auto;
+    }
+    .sbutton{
+        width:100px;
+        height:40px;
+        border: 1px solid black;
+        border-radius: 4px;
+        box-shadow: inset 0 1px 0 lightgrey,0 2px 5px rgba(0, 0, 0, .2);
+        padding:5px;
+        margin-right: 5px;
+    }
+    .sbutton:hover{
+        filter:brightness(1.5);
+    }
+    tr th:last-child{
+        font-weight:400;
+    }
+    .cryptoinfo{
+        display:flex;
+        margin: auto;
+        max-width: max-content;
+        padding:10px;
+        text-align:center;        
+        border-radius:8px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, .2);
+    }
+    .cryptoinfo table{
+        width:max-content;
+        display:inline-block;
+        padding: 5px;
+        box-sizing:border-box;
+        margin-right:5px;
+    }
+    .cryptoinfo1{
+        height:max-content;
+        width:max-content;
+        text-shadow: 1px 1px rgba(0, 0, 0, 1);
+    }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <div class="globalcrypto">
+                <div class="scroll-left">
+                    <p id="scroll-bar">Total Market Cap: </p>
+                </div>
+            </div> 
+        </div>
+        
+        <div id="content">
+            <h2 id="header-title">Crypto Checker</h2>
+            <hr>
+            <div class="main-title">
+                <h2>Compare Two Currencies</h2>
+            </div>
+            <div class="dropdown">
+                <select class="ddmenu" id="dropdown1">
+                    <option value="bitcoin">Bitcoin</option>
+                    <option value="ethereum">Ethereum</option>
+                    <option value="ripple">Ripple</option>
+                    <option value="litecoin">Litecoin</option>
+                    <option value="bitcoin-cash">Bitcoin Cash</option>
+                    <option value="tron">TRON</option>
+                    <option value="iota">IOTA</option>
+                    <option value="dash">Dash</option>
+                    <option value="monero">Monero</option>
+                    <option value="raiblocks">RaiBlocks</option>
+                    <option value="vechain">VeChain</option>
+                    <option value="zcash">Zcash</option>
+                </select>
+                <select class="ddmenu" id="dropdown2">
+                    <option value="bitcoin">Bitcoin</option>
+                    <option value="ethereum">Ethereum</option>
+                    <option value="ripple">Ripple</option>
+                    <option value="litecoin">Litecoin</option>
+                    <option value="bitcoin-cash">Bitcoin Cash</option>
+                    <option value="tron">TRON</option>
+                    <option value="iota">IOTA</option>
+                    <option value="dash">Dash</option>
+                    <option value="monero">Monero</option>
+                    <option value="raiblocks">RaiBlocks</option>
+                    <option value="vechain">VeChain</option>
+                    <option value="zcash">Zcash</option>
+                </select>
+                <br>
+                <div class="buttons">
+                    <button class="sbutton" type="button" id="sbutton" href="#">Submit</button>
+                    <button class="sbutton" type="button" id="hide">Hide</button>
+                </div>
+            </div>
+        </div>
+    <br>
+        <div id="tables">
+            <div id ="cryptoinfo" class="cryptoinfo">
+                <table class="cryptoinfo1"> 
+                    <tr>
+                        <th>Name:</th>
+                        <th id="cryptoname1" value=""></th>
+                    </tr>
+                    <tr>
+                        <th>Symbol:</th>
+                        <th id="cryptosymbol1" value=""></th>
+                    </tr>
+                    <tr>
+                        <th>Rank:</th>
+                        <th id="cryptorank1" value=""></th>
+                    </tr>
+                    <tr>
+                        <th>Price:</th>
+                        <th id="cryptoprice1" value=""></th>
+                    </tr>
+                    <tr>
+                        <th>Price(BTC):</th>
+                        <th id="cryptopriceb1" value=""></th>
+                    </tr>
+                    <tr>
+                        <th>24h Volume:</th>
+                        <th id="dayvolume1"></th>
+                    </tr>
+                    <tr>
+                        <th>Market Cap Used:</th>
+                        <th id="marketcap1"></th>
+                    </tr>
+                    <tr>
+                        <th>Avaliable Supply:</th>
+                        <th id="asupply1"></th>
+                    </tr>
+                    <tr>
+                        <th>Total Supply:</th>
+                        <th id="msupply1"></th>
+                    </tr>
+                    <tr>
+                        <th>Percent Change(1h):</th>
+                        <th id="pchange1h1"></th>
+                    </tr>
+                    <tr>
+                        <th>Percent Change(24h):</th>
+                        <th id="pchange24h1"></th>
+                    </tr>
+                    <tr>
+                        <th>Percent Change(7d):</th>
+                        <th id="pchange7d1"></th>
+                    </tr>
+                </table>
+
+                <table class="cryptoinfo1"> 
+                    <tr>
+                        <th>Name:</th>
+                        <th id="cryptoname2" value=""></th>
+                    </tr>
+                    <tr>
+                        <th>Symbol:</th>
+                        <th id="cryptosymbol2" value=""></th>
+                    </tr>
+                    <tr>
+                        <th>Rank:</th>
+                        <th id="cryptorank2" value=""></th>
+                    </tr>
+                    <tr>
+                        <th>Price:</th>
+                        <th id="cryptoprice2" value=""></th>
+                    </tr>
+                    <tr>
+                        <th>Price(BTC):</th>
+                        <th id="cryptopriceb2" value=""></th>
+                    </tr>
+                    <tr>
+                        <th>24h Volume:</th>
+                        <th id="dayvolume2"></th>
+                    </tr>
+                    <tr>
+                        <th>Market Cap Used:</th>
+                        <th id="marketcap2"></th>
+                    </tr>
+                    <tr>
+                        <th>Avaliable Supply:</th>
+                        <th id="asupply2"></th>
+                    </tr>
+                    <tr>
+                        <th>Total Supply:</th>
+                        <th id="msupply2"></th>
+                    </tr>
+                    <tr>
+                        <th>Percent Change(1h):</th>
+                        <th id="pchange1h2"></th>
+                    </tr>
+                    <tr>
+                        <th>Percent Change(24h):</th>
+                        <th id="pchange24h2"></th>
+                    </tr>
+                    <tr>
+                        <th>Percent Change(7d):</th>
+                        <th id="pchange7d2"></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="infoblocks">
+            <p></p>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
