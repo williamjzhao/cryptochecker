@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node"
+    "start": " app.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/williamjzhao/cryptochecker/issues"
   },
-  "homepage": "https://github.com/williamjzhao/cryptochecker"
+  "homepage": "https://github.com/williamjzhao/cryptochecker",
+  "dependencies": {
+    "node-static": "^0.7.10"
+  }
 }
