@@ -7,6 +7,7 @@ let url1 = "https://api.coinmarketcap.com/v1/ticker/" + crypto1 + "/";
 let url2 = "https://api.coinmarketcap.com/v1/ticker/" + crypto2 + "/";
 let count = 0;
 let revealed = false;
+const { Pool } = required('pg');
 
 $(function()
 {
@@ -173,24 +174,23 @@ function changeComparison(){
     globalinfo;
 }
 
-const { Client } = require('pg');
 
-const client = new Client({
+const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: true,
+  ssl: true
 });
 
-client.connect();
-
-client.query('INSERT INTO crypto_prices VALUES (cryptoname1,cryptoprice1);', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
+app.get('/db', async (req, res) => {
+  try {
+    const client = await pool.connect()
+    const result = await client.query('SELECT * FROM crypto_prices');
+    res.render('pages/db', result);
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
   }
-  client.end();
 });
-
-console.log("ok");
 
 
 
