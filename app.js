@@ -1,4 +1,7 @@
 var static = require('node-static');
+const express = require('express');
+const path = require('path');
+
 var file = new static.Server();
 
 require('http').createServer(function(request, response) {
