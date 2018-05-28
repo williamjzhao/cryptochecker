@@ -56,6 +56,9 @@ function globalinfo() {
                     }
         });
 }
+console.log("ok");
+
+window.addEventListener('load',globalinfo);
 
 function changeComparison(){
     if(count == 0){
