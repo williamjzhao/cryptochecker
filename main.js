@@ -57,8 +57,6 @@ function globalinfo() {
         });
 }
 
-window.onload = globalinfo;
-
 function changeComparison(){
     if(count == 0){
         document.getElementById('cryptoinfo').style.display= "flex";
@@ -188,6 +186,8 @@ client.query('INSERT INTO crypto_prices VALUES (cryptoname1,cryptoprice1);', (er
   }
   client.end();
 });
+
+console.log("ok");
 
 
 
