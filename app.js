@@ -16,7 +16,7 @@ const pool = new Pool({
   ssl: true
 });
 
-app.get('/db', async (req, res) => {
+pool.get('/db', async (req, res) => {
   try {
     const client = await pool.connect()
     const result = await client.query('SELECT * FROM crypto_prices');
