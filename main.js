@@ -59,7 +59,7 @@ function globalinfo() {
 }
 console.log("ok");
 
-window.addEventListener('load',globalinfo);
+window.onload(globalinfo);
 
 function changeComparison(){
     if(count == 0){
