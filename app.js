@@ -1,7 +1,7 @@
 var static = require('node-static');
 const express = require('express');
 const path = require('path');
-const { Pool } = require('pg');
+const { Client } = require('pg');
 
 var file = new static.Server();
 
@@ -11,19 +11,17 @@ require('http').createServer(function(request, response) {
   }).resume();
 }).listen(process.env.PORT || 3000);
 
-const pool = new Pool({
+const client = new Client({
   connectionString: process.env.DATABASE_URL,
-  ssl: true
+  ssl: true,
 });
 
-pool.get('/db', async (req, res) => {
-  try {
-    const client = await pool.connect()
-    const result = await client.query('SELECT * FROM crypto_prices');
-    res.render('pages/db', result);
-    client.release();
-  } catch (err) {
-    console.error(err);
-    res.send("Error " + err);
+client.connect();
+
+client.query('SELECT crypto_prices;', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
   }
+  client.end();
 });
