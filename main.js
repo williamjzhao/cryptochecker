@@ -7,7 +7,6 @@ let url1 = "https://api.coinmarketcap.com/v1/ticker/" + crypto1 + "/";
 let url2 = "https://api.coinmarketcap.com/v1/ticker/" + crypto2 + "/";
 let count = 0;
 let revealed = false;
-const { Pool } = require('pg');
 
 $(function()
 {
