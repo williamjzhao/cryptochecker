@@ -8,7 +8,6 @@ let url2 = "https://api.coinmarketcap.com/v1/ticker/" + crypto2 + "/";
 let count = 0;
 let revealed = false;
 
-
 $(function()
 {
     $("#sbutton").click(function()
@@ -55,10 +54,6 @@ function globalinfo() {
                             Number(parseFloat(data.bitcoin_percentage_of_market_cap).toFixed(2)).toLocaleString('en') + '0%')
                                 .fontcolor('blue');    
                     }
-            // document.getElementById('tmarketvol24h').innerHTML = '$' + info.total_24h_volume_usd;
-            // document.getElementById('acurrencies').innerHTML = info.active_currencies;
-            // document.getElementById('amarkets').innerHTML = info.active_markets;
-            // document.getElementById('bmc').innerHTML = info.bitcoin_percentage_of_market_cap + '%';
         });
 }
 
@@ -74,14 +69,6 @@ function changeComparison(){
     crypto2 = document.getElementById('dropdown2').value;
     url1 = "https://api.coinmarketcap.com/v1/ticker/" + crypto1 + "/";
     url2 = "https://api.coinmarketcap.com/v1/ticker/" + crypto2 + "/";
-
-    // fetch(url1).then( function(res) {
-    //     return res,json()
-    // }).then( function(data){
-    //     console.log(data);
-    //         }).catch( function(err){
-    //             console.log(err);
-    // })
 
     fetch(url1)
         .then((res) => { return res.json() })
@@ -185,6 +172,22 @@ function changeComparison(){
     globalinfo;
 }
 
+const { Client } = require('pg');
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+});
+
+client.connect();
+
+client.query('INSERT INTO crypto_prices VALUES (cryptoname1,cryptoprice1);', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+  client.end();
+});
 
 
 
