@@ -3,7 +3,6 @@ const express = require('express');
 const path = require('path');
 const { Pool } = require('pg');
 
-
 var file = new static.Server();
 
 require('http').createServer(function(request, response) {
